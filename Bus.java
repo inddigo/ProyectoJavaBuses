@@ -92,4 +92,23 @@ public class Bus
         mapaBus.get(key);
     }
 
+
+
+    public boolean asignarPasajero(Pasajero pasajero) 
+    {
+        if (pasajerosActuales < capacidad) 
+        {
+            mapaBus.put(pasajero.getRut(), pasajero);
+            pasajerosActuales++;
+            return true;
+        }
+        System.out.println("Bus lleno, no se puede asignar más pasajeros.");
+        return false;
+    }
+
+    public Map<String, Pasajero> getMapaBus() 
+    {
+        return mapaBus;
+    }
+
 }
