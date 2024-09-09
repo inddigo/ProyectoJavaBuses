@@ -45,6 +45,9 @@ public class SIAP
 
 
         Scanner input = new Scanner(System.in);
+         
+        System.out.println();
+        System.out.println("(ID SOLO EN NUMEROS)");
         System.out.println("Que opcion desea");
         System.out.println("1.Menu Buses");
         System.out.println("2.Menu Rutas");
@@ -83,6 +86,7 @@ public class SIAP
             case 5:
             {
                 menuListarDatos(empresa);
+                break;
                 
             }
             
@@ -90,6 +94,7 @@ public class SIAP
             {
                  
                 esViableElViaje(empresa);
+                break;
                 
             }
             
@@ -141,11 +146,13 @@ public class SIAP
             case 3:
             {
                 modificarBus(empresa);
+                break;
             }
                 
             case 4:
             {
                 buscarBusYmostrar(empresa);
+                break;
             }
                 
            
@@ -208,6 +215,7 @@ public class SIAP
        
         System.out.println("Ingrese Patente del bus a  modificar");
         
+        
         String patente = input.next();
         input.nextLine();
         
@@ -220,7 +228,7 @@ public class SIAP
         input.nextLine();
 
         System.out.println("Ingrese nuevo Costo de Mantencion del bus");
-        double nuevoCostoMantencion =input.nextDouble();
+        double nuevoCostoMantencion = input.nextDouble();
         input.nextLine();
         
         empresa.modificarBus(patente, nuevaCapacidad, nuevosPasajeros, nuevoCostoMantencion);
@@ -257,6 +265,7 @@ public class SIAP
 
         Scanner input = new Scanner(System.in);
         
+       
 
 
         System.out.println("Que opcion desea");
@@ -348,17 +357,23 @@ public class SIAP
         System.out.println("Ingrese la ID de la ruta");
         int idNuevo = input.nextInt();
         input.nextLine();
+        if(empresa.buscarRutaEnEmpresa(idNuevo))
+        {
+            System.out.println("Ingrese el destino de la ruta");
+            String nuevoDestino = input.next();
+            input.nextLine();
 
-
-        System.out.println("Ingrese el destino de la ruta");
-        String nuevoDestino = input.next();
-        input.nextLine();
-
-        System.out.println("Ingrese la distancia\n\n");
-        double nuevaDistancia = input.nextDouble();
-        input.nextLine();
-        empresa.modificarRutaEmpresa(idNuevo, nuevoDestino, nuevaDistancia);
+            System.out.println("Ingrese la distancia\n\n");
+            double nuevaDistancia = input.nextDouble();
+            input.nextLine();
+            empresa.modificarRutaEmpresa(idNuevo, nuevoDestino, nuevaDistancia);
         
+            
+        }
+        else System.out.println("ID NO ENCONTRADA");
+
+
+      
         
 
     }
@@ -407,15 +422,24 @@ public class SIAP
                 id = input.nextInt();
                 input.nextLine();
                 Ruta ruta = empresa.obtenerRuta(id);
+                if(ruta != null)
+                {
+                    String patente;
+                    System.out.println("Ingrese el La Patente del Bus");
+                    patente = input.next();
+                    input.nextLine();
                 
-                String patente;
-                System.out.println("Ingrese el La Patente del Bus");
-                patente = input.next();
-                input.nextLine();
+                    Bus bus = empresa.obtenerBusEmpresa(patente);
+                    if(bus!=null)
+                    {
+                        crearPasajero(input,ruta,bus);
+                           
+                    }
                 
-                Bus bus = empresa.obtenerBusEmpresa(patente);
+                    
+                }
+              
                 
-                crearPasajero(input,ruta,bus);
                 
                 break;
             }
@@ -550,8 +574,13 @@ public static void listarBuses(Empresa empresa)
         id = input.nextInt();
         input.nextLine();
         Ruta ruta = empresa.obtenerRuta(id);
-        boolean esViable = empresa.calcularViabilidadViaje(ruta, precioCombustible, costoPapeleo, ingresoPasajero);
-        System.out.println("El viaje es viable? " + (esViable ? "Sí" : "No"));
+        if(ruta != null)
+        {
+             boolean esViable = empresa.calcularViabilidadViaje(ruta, precioCombustible, costoPapeleo, ingresoPasajero);
+             System.out.println("El viaje es viable? " + (esViable ? "Sí" : "No"));
+       
+            
+        }
        
 
     }
@@ -631,8 +660,13 @@ public static void listarBuses(Empresa empresa)
                 id = input.nextInt();
                 input.nextLine();
                 Ruta ruta = empresa.obtenerRuta(id);
+                if(ruta != null)
+                {
+                    
+                    agregarHorarios(ruta);
+                    
+                }
                 
-                agregarHorarios(ruta);
                 
                 break;
             }
@@ -643,7 +677,11 @@ public static void listarBuses(Empresa empresa)
                 id = input.nextInt();
                 input.nextLine();
                 Ruta ruta = empresa.obtenerRuta(id);
-                consultarHorarios(ruta,input);
+                if(ruta != null)
+                {
+                    consultarHorarios(ruta,input);
+                }
+                
                 break;
                         
             }
