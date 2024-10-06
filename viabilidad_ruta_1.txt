@@ -1,0 +1,4 @@
+Costo Mantenimiento por Km: 87.50138888888888
+Ingreso Estimado: 0.0
+Costo Total de Mantenimiento: 10500.166666666666
+El viaje no es viable. Se recomienda juntar con el siguiente horario.
